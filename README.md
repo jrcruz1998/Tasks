@@ -1,7 +1,7 @@
-# Gasto de Viagem
+# Tasks
 
 ## Descrição do Projeto
-<p>Aplicativo que calcula o gasto de combustível inserindo a distância dos KMs, Preço por litro e KM por litro
+<p>Aplicativo que faz o gerenciamento de Tarefas
 </p>
 
 https://github.com/jrcruz1998/Tasks/assets/111304620/cba7682e-6812-4200-b6d1-abfae59c99f1
