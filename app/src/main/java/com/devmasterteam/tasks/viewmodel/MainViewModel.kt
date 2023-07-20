@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.devmasterteam.tasks.service.constants.TaskConstants
 import com.devmasterteam.tasks.service.repository.SecurityPreferences
 
-class MainVielModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val securityPreferences = SecurityPreferences(application.applicationContext)
 

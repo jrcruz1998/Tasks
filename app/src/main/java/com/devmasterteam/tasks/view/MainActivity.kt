@@ -16,13 +16,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ui.NavigationUI
 import com.devmasterteam.tasks.R
 import com.devmasterteam.tasks.databinding.ActivityMainBinding
-import com.devmasterteam.tasks.viewmodel.MainVielModel
+import com.devmasterteam.tasks.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewmodel: MainVielModel
+    private lateinit var viewmodel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewmodel = ViewModelProvider(this).get(MainVielModel::class.java)
+        viewmodel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
