@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.devmasterteam.tasks.R
@@ -13,6 +15,16 @@ import com.devmasterteam.tasks.service.model.PersonModel
 import com.devmasterteam.tasks.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
+
+    /**
+     * logou - mostro autenticação
+     * sucesso -> navegação
+     * falha -> manter login
+     *
+     * nao tem dados de autent
+     * nao mostro
+     *
+     */
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
@@ -33,7 +45,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         binding.textRegister.setOnClickListener(this)
 
         //Verifica se o usuário está logado
-        viewModel.verifyLoggedUser()
+        viewModel.verifyAutentication()
 
         // Observadores
         observe()
@@ -59,10 +71,29 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         viewModel.loggedUser.observe(this) {
             if (it) {
-                startActivity(Intent(applicationContext, MainActivity::class.java))
-                finish()
+                biometricAutentication()
             }
         }
+    }
+
+    private fun biometricAutentication() {
+            val executor = ContextCompat.getMainExecutor(this)
+
+            val bio = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback(){
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    finish()
+                }
+            })
+
+            val info = BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Título")
+                .setSubtitle("Sub título")
+                .setDescription("Descrição")
+                .setNegativeButtonText("Cancelar")
+                .build()
+            bio.authenticate(info)
     }
 
     private fun handleLogin() {

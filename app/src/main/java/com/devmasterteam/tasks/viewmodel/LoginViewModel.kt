@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.devmasterteam.tasks.service.Helper.Biometrichelper
 import com.devmasterteam.tasks.service.constants.TaskConstants
 import com.devmasterteam.tasks.service.listener.APIListener
 import com.devmasterteam.tasks.service.model.PersonModel
@@ -55,7 +56,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Verifica se usuário está logado
      */
-    fun verifyLoggedUser() {
+    fun verifyAutentication() {
         val token = securityPreferences.get(TaskConstants.SHARED.TOKEN_KEY)
         val person = securityPreferences.get(TaskConstants.SHARED.PERSON_KEY)
 
@@ -64,7 +65,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         // Verifica se usuário está logado, se sim, retorna true
         val logged = (token != "" && person != "")
-        _loggedUser.value = logged
 
         // Se nao estiver logado, faz o download de prioridades
         if (!logged) {
@@ -79,6 +79,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
             })
         }
+
+        _loggedUser.value = (logged && Biometrichelper.isBiometricAvaliable(getApplication<Application>().applicationContext))
     }
 
 }
